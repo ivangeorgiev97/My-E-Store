@@ -1,0 +1,103 @@
+#footer {
+    position: absolute; 
+    width: 100%;
+    bottom: 0px; 
+    background-color: white;  
+    height: 51px; 
+    margin-top: 42px; 
+    border-top: 1px solid #d3e0e9;
+}
+
+@media screen and (max-width: 768px) {
+    #footer {
+        position: relative;
+        margin-top: 150px;
+    }
+    
+    .divImages {
+        margin: 0 auto!important;
+        text-align: center!important;
+    }
+}
+
+#footerContent {
+    margin: 0 auto;
+    text-align: center;
+}
+
+#leftMenu {
+    background-color: white;
+    border: 1px solid #d3e0e9;
+    overflow: hidden;
+}
+
+#firstRowIndex {
+}
+
+#search{
+
+}
+
+#searchButton {
+   
+}
+
+#rightContent {
+    background-color: white;
+    border: 1px solid #d3e0e9;
+    overflow: hidden;
+}
+
+#leftNav {
+    
+}
+
+#input-group-search {
+    margin-bottom: 10px;
+}
+
+.homeImages {
+    max-width: 230px;
+    max-height: 230px;
+}
+
+.divImages {
+    display: inline-block;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#btnProducts {
+    margin-bottom: 10px;
+}
+
+.categoriesMenu {
+  display: none;
+}
+
+#productsPagination {
+    text-align: center;
+}
+
+#buyNowForm {
+    text-align: center;
+}
+
+#submitBuyNow {
+    margin-top: 100px;
+}
+
+#mainAdminContainer {
+    text-align: center;
+    text-decoration: none!important;
+    background-color: white;
+    height: 800px!important;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+#continueCart {
+    margin-bottom: 5px;
+}
