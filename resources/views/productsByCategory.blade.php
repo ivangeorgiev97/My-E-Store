@@ -14,8 +14,8 @@
                      <hr class="hr">
                       @foreach($products as $product)
                       <div class="divImages col-sm-3">
-                          <a href="/product/{{$product['id']}}"><img class="homeImages img-thumbnail" src="{{ asset('images') }}/{{$product['product_img']}}"></a>
-                          <p><a href="/product/{{$product['id']}}">{{$product['product_name']}} | Click to view more details</a></p>
+                          <a href="{{route('product.show',$product['id'])}}"><img class="homeImages img-thumbnail" src="{{ asset('images') }}/{{$product['product_img']}}"></a>
+                          <p><a href="{{route('product.show',$product['id'])}}">{{$product['product_name']}} | Click to view more details</a></p>
                           <p>Price: <b style="font-family: Arial;">{{$product['product_price']}} BGN</b></p>
     
                           

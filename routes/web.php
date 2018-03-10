@@ -13,8 +13,8 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/categories/{id}', 'ProductsByCategoryController@getProductsFromCategroy');
-Route::get('/product/{id}', 'CurrentProductController@getCurrentProduct');
+Route::get('/categories/{id}', 'ProductsByCategoryController@getProductsFromCategroy')->name('category');
+Route::get('/product/{id}', 'CurrentProductController@getCurrentProduct')->name('product.show');
 
 // ORDERS
 
@@ -25,24 +25,26 @@ Route::post('/makeOrder','OrdersController@makeOrder');
 
 Route::get('search/autocomplete', ['as' => 'search-autocomplete', 'uses' => 'SearchController@autocomplete']);
 Route::get('search/searchresults', 'SearchController@getSearchResult');
+
+
 Route::group(['middleware' => 'auth'], function(){
 
 // CART
-Route::post('addToCart','CartController@create')->middleware('auth');
-Route::get('myCart','CartController@index')->middleware('auth');
-Route::get('removeCartItem/{rowId}','CartController@removeItem')->middleware('auth');
+Route::post('addToCart','CartController@create');
+Route::get('myCart','CartController@index');
+Route::get('removeCartItem/{rowId}','CartController@removeItem')->name('cart.removeItem');
       
 // AdminCP 
-Route::group(['middleware' => 'admin'], function(){
+Route::group(['middleware' => 'admin', 'prefix'=>'admincp'], function(){
 
-Route::get('/admincp','AdminController@index')->middleware('auth')->middleware('admin');
-Route::get('/admincp/orders','AdminController@getOrders')->middleware('auth')->middleware('admin');
-Route::post('/admincp/orderSent','AdminController@orderNotSent')->middleware('auth')->middleware('admin'); 
-Route::post('/admincp/orderNotSent','AdminController@orderSent')->middleware('auth')->middleware('admin'); 
-Route::get('/admincp/products','AdminController@getProducts')->middleware('auth')->middleware('admin');
-Route::get('/admincp/addProduct','AdminController@getAddProduct')->middleware('auth')->middleware('admin');
-Route::post('/admincp/addProduct','AdminController@addProduct')->middleware('auth')->middleware('admin');
-Route::get('/admincp/categories','AdminController@getCategories')->middleware('auth')->middleware('admin');
+Route::get('/','AdminController@index')->name('admincp.index');
+Route::get('/orders','AdminController@getOrders')->name('admincp.orders');
+Route::post('/orderSent','AdminController@orderNotSent'); 
+Route::post('/orderNotSent','AdminController@orderSent'); 
+Route::get('/products','AdminController@getProducts')->name('admincp.products');
+Route::get('/addProduct','AdminController@getAddProduct')->name('admincp.addProduct');
+Route::post('/addProduct','AdminController@addProduct');
+Route::get('/categories','AdminController@getCategories')->name('admincp.categories');
 
 });
 

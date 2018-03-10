@@ -45,7 +45,7 @@
                      <td>{{$cartItem->qty}}</td>
                      <td>{{$cartItem->price}} BGN</td>
                      <td>{{$cartItem->total}} BGN</td>
-                     <td><a href='removeCartItem/{{$cartItem->rowId}}'><button class='btn btn-danger'>Remove</button></a></td>
+                     <td><a href='{{ route('cart.removeItem',$cartItem->rowId)}}'><button class='btn btn-danger'>Remove</button></a></td>
                      </tr>
                      
                      @endforeach

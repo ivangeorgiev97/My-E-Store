@@ -14,7 +14,7 @@
                     <nav>
                         <button name="btnProducts" id="btnProducts" class="btn btn-default">All Products</button>
                         @foreach($categories as $category)
-                        <p class="categoriesMenu"><a href="categories/{{$category['id']}}">{{$category['category_name']}}</a></p>
+                        <p class="categoriesMenu"><a href="{{ route('category',$category['id']) }}">{{$category['category_name']}}</a></p>
                         @endforeach
                     </nav>
             </div>

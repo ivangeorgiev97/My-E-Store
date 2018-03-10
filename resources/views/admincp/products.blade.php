@@ -5,10 +5,10 @@
 <div class="container-fluid">
     <div id="mainAdminContainer">
     <h1> Products </h1>
-    <a href="/admincp">Back to admin panel</a>
+    <a href="{{route('admincp.index')}}">Back to admin panel</a>
     <hr class="hr">
       
-    <a href="/admincp/addProduct"><button class="btn btn-primary" id="addProduct">Add Product</button></a>
+    <a href="{{route('admincp.addProduct')}}"><button class="btn btn-primary" id="addProduct">Add Product</button></a>
     <hr class="hr">
     
     <h3>All products // TODO: ADD EDIT/DELETE</h3>

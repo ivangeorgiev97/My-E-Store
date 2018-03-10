@@ -5,7 +5,7 @@
 <div class="container-fluid" id="mainAdminContainer">
    
     <h1> Orders </h1>
-    <a href="/admincp">Back to admin panel</a>
+    <a href="{{route('admincp.index')}}">Back to admin panel</a>
     <hr class="hr">
           
             @foreach($orders as $order)
