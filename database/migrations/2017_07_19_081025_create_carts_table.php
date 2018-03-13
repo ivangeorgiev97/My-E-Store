@@ -15,10 +15,13 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id'); //should be bigint
-            $table->integer('user_id');
-            $table->integer('price'); // may be bigint 
+            $table->decimal('price', 8, 2); 
+            $table->unsignedInteger('user_id');            
+            $table->unsignedInteger('product_id');
             $table->timestamps();
+            
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
     }
 
