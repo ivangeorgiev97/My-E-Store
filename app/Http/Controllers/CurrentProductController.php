@@ -2,20 +2,26 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use View;
-use App\Category;
-use App\Product;
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 
 class CurrentProductController extends Controller
 {
-    private $product;
-    private $categories;
-    private $quantity;
+    protected $product;
+    protected $categories;
+    protected $quantity;
+    protected $categoryRepository;
+    protected $productRepository;
+    
+    public function __construct(CategoryRepository $categoryRepository, ProductRepository $productRepository) {
+        $this->categoryRepository = $categoryRepository;
+        $this->productRepository = $productRepository;
+    }
     
     public function getCurrentProduct($id){
-        $this->product = Product::where('id',$id)->get();
-        $this->categories = Category::all();
+        $this->product = $this->productRepository->getById($id);
+        $this->categories = $this->categoryRepository->getAll();
         
         $this->quantity = array();
         for($i=0; $i<=4; $i++){

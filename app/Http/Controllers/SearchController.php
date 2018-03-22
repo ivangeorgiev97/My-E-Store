@@ -8,21 +8,34 @@ use Illuminate\Http\Response;
 use View;
 use App\Product;
 use App\Category;
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 
 class SearchController extends Controller
 {
+    protected $categoryRepository;
+    protected $productRepository;
+    
+    public function __construct(CategoryRepository $categoryRepository, ProductRepository $productRepository) {
+        $this->categoryRepository = $categoryRepository;
+        $this->productRepository = $productRepository;
+    }
+    
     public function autocomplete() {
-	$term = request('term');
-        $result = Product::where('product_name', 'LIKE', '%' . $term . '%')->get(['id', 'product_name as value']);
+	$name = request('term');
+        $result = $this->productRepository->getSuggestedProductsByName($name);
           
         return response()->json($result);
     }
     
     public function getSearchResult(Request $request) { 
         if (!empty($request->term)) {
-        $term = $request->term;
-        $products = Product::where('product_name', 'LIKE', '%' . $term . '%')->paginate(8); //->get(['id']);
-        $categories = Category::all();
+        $name = $request->term;
+        $numberOfProducts = 8;
+        $products = $this->productRepository->getByNamePaginated($name, $numberOfProducts); //OLD VERSION /->get(['id']);
+        $categories = $this->categoryRepository->getAll();
+        
+        // OLD VERSION
         // $id;
 //        foreach($result as $res) {
 //            $id = $res['id'];
@@ -32,7 +45,7 @@ class SearchController extends Controller
                     ->with('products',$products)
                     ->with('categories',$categories);
         
-       // return redirect('/product/'.$id);
+       // return redirect('/product/'.$id); OLD VERSION
         }
         
         return redirect()->route('home');

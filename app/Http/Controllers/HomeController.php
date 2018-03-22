@@ -4,30 +4,26 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use View;
-use App\Category;
-use App\Product;
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 
 
 class HomeController extends Controller
 {
+    protected $categoryRepository;
+    protected $productRepository;
+    
+    public function __construct(CategoryRepository $categoryRepository, ProductRepository $productRepository) {
+        $this->categoryRepository = $categoryRepository;
+        $this->productRepository = $productRepository;
+    }
+    
     public function index() {
-       $products = Product::orderBy('id','desc')->limit(8)->get();     
-       $categories = Category::all();   // TODO: Share it with all views 
-
-       $counter = 0;
-       $counter2 = 0;
-       $temp = 0;
-       $flag = false; 
-       $allPrevious = array();
+       $products = $this->productRepository->getLatestProducts(8);     
+       $categories = $this->categoryRepository->getAll();   
        
-      
-        return View::make('index')
+       return View::make('index')
             ->with('products',$products)
-            ->with('categories',$categories)
-            ->with('counter',$counter)
-            ->with('counter2',$counter2)
-            ->with('flag',$flag)
-            ->with('temp',$temp)
-            ->with('allPrevious',$allPrevious);
+            ->with('categories',$categories);
     }
 }

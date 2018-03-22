@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Order_product;
-use App\Order;
+use App\Repositories\OrderRepository;
+use App\Repositories\OrderProductRepository;
 
 use View;
 use Auth;
@@ -14,6 +14,14 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class OrdersController extends Controller
 {
+    protected $orderRepository;
+    protected $orderProductRepository;
+    
+    public function __construct(OrderRepository $orderRepository, OrderProductRepository $orderProductRepository) {
+        $this->orderRepository = $orderRepository;
+        $this->orderProductRepository = $orderProductRepository;
+    }
+    
    public function index() {
        return view('orderDetails');
    }
@@ -34,12 +42,15 @@ class OrdersController extends Controller
        $status = 0;
        $user_id = Auth::user()->id;
        
-       Order::create(['receiver_name'=>$receiver_name,'phone'=>$phone,'pymethod'=>$pymethod,'price'=>$price,'status'=>$status,'user_id'=>$user_id,'address'=>$address]);
+       $order = ['receiver_name'=>$receiver_name,'phone'=>$phone,'pymethod'=>$pymethod,'price'=>$price,'status'=>$status,'user_id'=>$user_id,'address'=>$address];
        
-       $lastOrder = Order::orderBy('id','desc')->first();
+       $this->orderRepository->createOrder($order);
+       
+       $lastOrder = $this->orderRepository->getLastOne();
        
        foreach(Cart::content() as $cartItem) {
-           Order_product::create(['product_id'=>$cartItem->id,'order_product_price'=>$cartItem->total,'order_product_quantity'=>$cartItem->qty,'order_id'=>$lastOrder->id]);
+          // Order_product::create(['product_id'=>$cartItem->id,'order_product_price'=>$cartItem->total,'order_product_quantity'=>$cartItem->qty,'order_id'=>$lastOrder->id]);
+          $this->orderProductRepository->addOrderedProducts(['product_id'=>$cartItem->id,'order_product_price'=>$cartItem->total,'order_product_quantity'=>$cartItem->qty,'order_id'=>$lastOrder->id]);
        }
        
        Cart::destroy();

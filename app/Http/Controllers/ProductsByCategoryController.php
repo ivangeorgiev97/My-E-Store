@@ -2,20 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use View;
-use App\Category;
-use App\Product;
+use App\Repositories\CategoryRepository;
+use App\Repositories\ProductRepository;
 
 class ProductsByCategoryController extends Controller
 {
-    private $products;
-    private $categories;
+    protected $products;
+    protected $categories;
+    protected $categoryRepository;
+    protected $productRepository;
+    
+    public function __construct(CategoryRepository $categoryRepository, ProductRepository $productRepository) {
+        $this->categoryRepository = $categoryRepository;
+        $this->productRepository = $productRepository;
+    }
     
     public function getProductsFromCategroy($id) {
-        $this->categories = Category::all();
+        $this->categories = $this->categoryRepository->getAll();
         
-        $this->products = Product::where('category_id',$id)->orderBy('id','desc')->paginate(8);
+        $categoryId = $id;
+        $numberOfProducts = 8;
+        $this->products = $this->productRepository->getByCategoryPaginated($categoryId, $numberOfProducts);
         
         return View::make('productsByCategory')
                 ->with('products',$this->products)

@@ -94,6 +94,10 @@
     height: 800px!important;
 }
 
+#categoryAdminContainer {
+    background-color: white;
+}
+
 .alignCenter {
     text-align: center;
 }

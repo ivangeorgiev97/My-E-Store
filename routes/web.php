@@ -35,16 +35,16 @@ Route::get('myCart','CartController@index');
 Route::get('removeCartItem/{rowId}','CartController@removeItem')->name('cart.removeItem');
       
 // AdminCP 
-Route::group(['middleware' => 'admin', 'prefix'=>'admincp'], function(){
+Route::group(['middleware' => 'admin', 'namespace'=>'Admin' ,'prefix'=>'admincp'], function(){
 
 Route::get('/','AdminController@index')->name('admincp.index');
-Route::get('/orders','AdminController@getOrders')->name('admincp.orders');
-Route::post('/orderSent','AdminController@orderNotSent'); 
-Route::post('/orderNotSent','AdminController@orderSent'); 
-Route::get('/products','AdminController@getProducts')->name('admincp.products');
-Route::get('/addProduct','AdminController@getAddProduct')->name('admincp.addProduct');
-Route::post('/addProduct','AdminController@addProduct');
-Route::get('/categories','AdminController@getCategories')->name('admincp.categories');
+Route::get('/orders','OrderController@getOrders')->name('admincp.orders');
+Route::post('/orderSent','OrderController@orderNotSent'); 
+Route::post('/orderNotSent','OrderController@orderSent'); 
+Route::get('/products','ProductController@getProducts')->name('admincp.products');
+Route::get('/addProduct','ProductController@getAddProduct')->name('admincp.addProduct');
+Route::post('/addProduct','ProductController@addProduct');
+Route::get('/categories','CategoryController@getCategories')->name('admincp.categories');
 
 });
 
