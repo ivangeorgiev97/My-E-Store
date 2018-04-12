@@ -36,7 +36,4 @@ class ProductRepository extends BaseRepository {
         return $this->model::where('product_name', 'LIKE', '%' . $name . '%')->paginate($numberOfProducts);
     }
     
-    public function addProduct($product) {
-        $this->model::create($product);
-    }
 }
