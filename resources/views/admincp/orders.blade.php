@@ -35,15 +35,16 @@
         </table>
     </div>
     <h4>Order #{{$order['id']}} Items:</h4>
-    <div class='table-bordered'>
-        <table class='table table-responsive'>
-            <tr><th>Item</th><th>Quantity</th></tr>
-
+    <div>
+        <table class='table table-bordered'>
+            <thead><tr><th>Item</th><th>Quantity</th></tr></thead>
+            <tbody>
             @foreach($products as $product)
             @if($product['order_id'] === $order['id'])
             <tr><td>{{$product['product_name']}}</td><td>{{$product['order_product_quantity']}}</td></tr>
             @endif
             @endforeach
+            </tbody>
         </table>
     </div>
     <hr class='hr'>
