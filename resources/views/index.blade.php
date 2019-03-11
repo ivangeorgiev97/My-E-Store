@@ -8,7 +8,7 @@
 
         @include('shared.leftSidebar')
 
-        <div class="col-md-offset-1 col-md-8" id="rightContent">
+        <div class="col-md-9" id="rightContent">
             <section>
                 <h4>Latest products:</h4>
                 <hr class="hr">

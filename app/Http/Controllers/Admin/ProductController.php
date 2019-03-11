@@ -3,16 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use View;
-use Auth;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
-use App\Category;
-use App\Product;
-use App\Order;
-use App\User;
+use App\Http\Requests\StoreProduct;
 
 class ProductController extends Controller {
 
@@ -42,14 +37,7 @@ class ProductController extends Controller {
                         ->with('categories', $categories);
     }
 
-    public function addProduct(Request $request) {
-        $this->validate($request, [
-            'product_name' => 'required',
-            'product_description' => 'required',
-            'product_price' => 'required',
-            'product_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|',
-        ]);
-
+    public function addProduct(StoreProduct $request) {
         $product_name = $request->product_name;
         $product_description = $request->product_description;
         $product_price = $request->product_price;
