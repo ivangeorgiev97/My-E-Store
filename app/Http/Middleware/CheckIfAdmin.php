@@ -5,8 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class CheckIfAdmin
-{
+class CheckIfAdmin {
+
     /**
      * Handle an incoming request.
      *
@@ -14,14 +14,15 @@ class CheckIfAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-    public function handle($request, Closure $next)
+    public function handle($request, Closure $next) 
     {
-        if (Auth::check()){
-           if(Auth::user()->permission!==3) {
-               return redirect('/home');
+        if (Auth::check()) {
+            if (Auth::user()->permission !== 3) {
+                return redirect('/home');
             }
         }
-        
+
         return $next($request);
     }
+
 }

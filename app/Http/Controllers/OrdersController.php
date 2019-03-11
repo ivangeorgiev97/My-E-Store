@@ -14,24 +14,27 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 
 class OrdersController extends Controller
 {
+    
     protected $orderRepository;
     protected $orderProductRepository;
     
-    public function __construct(OrderRepository $orderRepository, OrderProductRepository $orderProductRepository) {
+    public function __construct(OrderRepository $orderRepository, OrderProductRepository $orderProductRepository) 
+    {
         $this->orderRepository = $orderRepository;
         $this->orderProductRepository = $orderProductRepository;
     }
     
-   public function index() {
+   public function index() 
+   {
        return view('orderDetails');
    }
    
-   public function makeOrder(Request $request) {
+   public function makeOrder(Request $request) 
+   {
        $this->validate($request, [
          'receiver_name' => 'required',
          'phone' => 'required|numeric', 
-         'address' => 'required',
-      
+         'address' => 'required'
         ]);
        
        $receiver_name = $request->receiver_name;
@@ -57,8 +60,8 @@ class OrdersController extends Controller
        
        $success = "You have successfully completed your order!";
        
-       return View::make('orderDetails')->with('success',$success);
-           
+       return View::make('orderDetails')->with('success',$success);   
    }   
+   
 }
 
