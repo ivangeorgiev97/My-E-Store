@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use View;
 use App\Repositories\CategoryRepository;
@@ -67,14 +66,7 @@ class ProductController extends Controller {
                         ->with('product', $product);
     }
 
-    public function updateProduct($id, Request $request) {
-        $this->validate($request, [
-            'product_name' => 'required',
-            'product_description' => 'required',
-            'product_price' => 'required',
-            'product_img' => 'required|image|mimes:jpeg,png,jpg,gif,svg|',
-        ]);
-
+    public function updateProduct($id, StoreProduct $request) {
         $product = $this->productRepository->getById($id);
 
         $product->product_name = $request->product_name;
