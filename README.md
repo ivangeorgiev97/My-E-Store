@@ -7,4 +7,4 @@ Features:
 - Orders management
 - Search with autocomplete feature
 - Cart
-- Authentication and different user roles 
+- Authentication and different user roles (admin, user and guest) 
